@@ -1,7 +1,8 @@
 pipeline {
   agent any
-  tools { jdk 'jdk21' }   // <-- هذا اللي يطلب جافا 21
-  options { timestamps(); ansiColor('xterm') }
+  tools { jdk 'jdk21' }   // تأكد أنك عرّفت jdk21 في Manage Jenkins -> Tools
+
+  options { timestamps() } // شِل ansiColor لأنها سبب الخطأ
 
   stages {
     stage('Checkout') {
@@ -14,9 +15,7 @@ pipeline {
       }
     }
     stage('Publish Results') {
-      steps {
-        junit 'target/surefire-reports/*.xml'
-      }
+      steps { junit 'target/surefire-reports/*.xml' }
     }
   }
 
